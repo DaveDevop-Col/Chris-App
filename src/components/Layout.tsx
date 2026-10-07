@@ -19,8 +19,8 @@ type Props = {
 }
 
 export default function Layout({ children, pestanas = true }: Props) {
-  const { perfil, cerrarSesion } = useAuth()
-  const nombre = perfil?.nombre ?? 'Invitado'
+  const { user, perfil, cerrarSesion } = useAuth()
+  const nombre = perfil?.nombre ?? ''
   const pathname = usePathname()
 
   return (
@@ -38,19 +38,21 @@ export default function Layout({ children, pestanas = true }: Props) {
           </Link>
         )}
 
-        <div className='app-header__usuario'>
-          <span className='app-header__nombre' title={nombre ?? ""}>
-            {nombre ?? ""}
-          </span>
-          <button type='button' className='boton boton--fantasma boton--chico' onClick={cerrarSesion}>
-            Salir
-          </button>
-        </div>
+        {user && (
+          <div className='app-header__usuario'>
+            <span className='app-header__nombre' title={nombre}>
+              {nombre}
+            </span>
+            <button type='button' className='boton boton--fantasma boton--chico' onClick={cerrarSesion}>
+              Salir
+            </button>
+          </div>
+        )}
       </header>
 
       <main className='app-contenido'>{children}</main>
 
-      {pestanas && (
+      {pestanas && user && (
         <nav className='app-nav' aria-label='Navegación principal'>
           {PESTANAS.map((pestana) => (
             <Link

@@ -32,10 +32,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setCargando(false)
     })
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_evento, nuevaSesion) => {
+    const { data: listener } = supabase.auth.onAuthStateChange((evento, nuevaSesion) => {
       if (!vigente) return
       setSession(nuevaSesion)
       setCargando(false)
+      if (
+        evento === 'SIGNED_OUT' &&
+        !nuevaSesion &&
+        typeof window !== 'undefined' &&
+        window.location.pathname !== '/login'
+      ) {
+        window.location.replace('/login')
+      }
     })
 
     return () => {
@@ -78,7 +86,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const cerrarSesion = useCallback(async () => {
-    await supabase.auth.signOut()
+    try {
+      const { error } = await supabase.auth.signOut()
+      if (error) console.error(error)
+    } finally {
+      if (typeof window !== 'undefined') window.location.replace('/login')
+    }
   }, [])
 
   const actualizarPerfil = useCallback(

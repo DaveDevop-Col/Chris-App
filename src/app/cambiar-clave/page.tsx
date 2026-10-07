@@ -7,7 +7,7 @@ import { supabase } from '@/lib/supabase'
 import Layout from '@/components/Layout'
 
 export default function CambiarClave() {
-  const { cargando, user, perfil, actualizarPerfil } = useAuth()
+  const { cargando, user, perfil, actualizarPerfil, cerrarSesion } = useAuth()
   const router = useRouter()
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
@@ -94,7 +94,7 @@ export default function CambiarClave() {
           <button
             className='boton boton--secundario'
             type='button'
-            onClick={() => supabase.auth.signOut()}
+            onClick={cerrarSesion}
             disabled={guardando}
           >
             Cerrar sesión
