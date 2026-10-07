@@ -58,8 +58,8 @@ export default function LoginPage() {
       <form className='tarjeta login__tarjeta' onSubmit={manejarEnvio} noValidate>
         <Image
           className='login__foto'
-          src='/ChrisJG.jpg'
-          alt='Chris'
+          src='/LogoPrincipal.jpg'
+          alt='App Chris'
           width={96}
           height={96}
         />

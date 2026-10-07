@@ -26,3 +26,15 @@ export function formatearMesAnio(mes: number, anio: number) {
   const m = MESES[mes - 1] ?? ''
   return m + ' ' + anio
 }
+
+export function plural(n: number, singular: string, pluralForm: string): string {
+  return n === 1 ? singular : pluralForm
+}
+
+export function textoEstado(estado: string): string {
+  return estado === 'pendiente' ? 'Pendiente' : estado === 'saldado' ? 'Saldado' : estado
+}
+
+export function claseEstado(estado: string): string {
+  return estado === 'pendiente' ? 'estado--pendiente' : 'estado--saldado'
+}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/context/AuthContext'
-import { formatearPesos, formatearFecha } from '@/lib/format'
+import { formatearPesos, formatearFecha, plural, textoEstado, claseEstado } from '@/lib/format'
 import { supabase } from '@/lib/supabase'
 import { actualizarCompra, eliminarCompra, listarProductosCompra } from '@/lib/datos'
 import type { Compra, ProductoGasto } from '@/lib/types'
@@ -145,7 +145,8 @@ async function reabrir(c: Compra) {
                 <span className='registro__fecha'>{formatearFecha(c.fecha)}</span>
                 <span className='registro__nombre'>{c.descripcion || 'Compra'}</span>
                 <span className='registro__meta'>
-                  N° productos: {numProd} • Registrado por: {nombre} • Estado: {c._enCurso ? 'En curso' : c.estado}
+                  N° {plural(numProd, 'producto', 'productos')}: {numProd} • Registrado por: {nombre} • Estado:{' '}
+                  {c._enCurso ? 'En curso' : <span className={claseEstado(c.estado)}>{textoEstado(c.estado)}</span>}
                 </span>
               </div>
               <div className='registro__lado'>

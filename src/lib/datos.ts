@@ -172,16 +172,19 @@ export async function listarHistorial(): Promise<FilaHistorial[]> {
   return filas
 }
 
-export async function listarComprasCerradasPendientes(): Promise<Compra[]> {
+export async function listarComprasCerradasPendientes(): Promise<(Compra & { num_productos?: number })[]> {
   const { data, error } = await supabaseBrowser
     .from('compras')
-    .select('*')
+    .select('*, gastos(count)')
     .eq('cerrada', true)
     .eq('estado', 'pendiente')
     .order('fecha', { ascending: false })
     .order('created_at', { ascending: false })
   if (error) throw new Error(error.message)
-  return (data ?? []) as Compra[]
+  return ((data ?? []) as (Compra & { gastos?: { count: number }[] })[]).map((c) => ({
+    ...c,
+    num_productos: c.gastos?.[0]?.count ?? 0,
+  }))
 }
 
 export async function listarComprasCerradas(): Promise<Compra[]> {

@@ -10,9 +10,9 @@ export default function HistorialClient() {
   return (
     <section className='pagina'>
       <h1 className='pagina__titulo'>Historial</h1>
-      <div className='formulario__acciones'>
-        <button className={`boton ${tab === 'mes' ? 'boton--primario' : 'boton--secundario'}`} onClick={() => setTab('mes')}>Compras por mes</button>
-        <button className={`boton ${tab === 'resumen' ? 'boton--primario' : 'boton--secundario'}`} onClick={() => setTab('resumen')}>Resumen mensual</button>
+      <div className='pestanas'>
+        <button className={`pestanas__boton ${tab === 'mes' ? 'pestanas__boton--activa' : ''}`} onClick={() => setTab('mes')}>Compras por mes</button>
+        <button className={`pestanas__boton ${tab === 'resumen' ? 'pestanas__boton--activa' : ''}`} onClick={() => setTab('resumen')}>Resumen mensual</button>
       </div>
       {tab === 'mes' && <ComprasPorMes />}
       {tab === 'resumen' && <ResumenMensual />}

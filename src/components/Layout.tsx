@@ -2,6 +2,7 @@
 
 import type { ReactNode } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 
@@ -27,16 +28,12 @@ export default function Layout({ children, pestanas = true }: Props) {
       <header className='app-header'>
         {pestanas ? (
           <span className='app-header__marca'>
-            <span className='app-header__logo' aria-hidden='true'>
-              C
-            </span>
+            <Image className='app-header__logo' src='/LogoPrincipal.jpg' alt='App Chris' width={32} height={32} />
             <span>App Chris</span>
           </span>
         ) : (
           <Link href='/' className='app-header__marca'>
-            <span className='app-header__logo' aria-hidden='true'>
-              C
-            </span>
+            <Image className='app-header__logo' src='/LogoPrincipal.jpg' alt='App Chris' width={32} height={32} />
             <span>App Chris</span>
           </Link>
         )}

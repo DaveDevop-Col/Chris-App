@@ -1,33 +1,23 @@
 /* =============================================================================
-   Protecto Chris · estilos base (mobile first)
-   Paleta: verde azulado (teal) + slates. Tipografía del sistema.
+   Proyecto Chris · estilos base (mobile first)
+   Tema oscuro sobrio · acento único apagado (#2a9d8f) · sin degradados ni brillos.
    ========================================================================== */
 
 :root {
-  --teal-700: #0f766e;
-  --teal-600: #0d9488;
-  --teal-100: #ccfbf1;
-  --teal-50: #f0fdfa;
-
-  --slate-900: #0f172a;
-  --slate-700: #334155;
-  --slate-500: #64748b;
-  --slate-300: #cbd5e1;
-  --slate-200: #e2e8f0;
-  --slate-100: #f1f5f9;
-  --blanco: #ffffff;
-
-  --ambar-600: #d97706;
-  --ambar-100: #fef3c7;
-  --rojo-600: #dc2626;
-  --rojo-100: #fee2e2;
-  --verde-600: #16a34a;
-  --verde-100: #dcfce7;
+  --fondo: #0d1117;
+  --superficie: #161b22;
+  --borde: #2a313a;
+  --texto: #f0f3f6;
+  --texto-suave: #8b949e;
+  --acento: #2a9d8f;
+  --acento-hover: #238a7d;
+  --advertencia: #c9a227;
+  --error: #c0504d;
 
   --radio: 14px;
   --radio-chico: 10px;
-  --sombra: 0 1px 2px rgb(15 23 42 / 0.06), 0 8px 24px rgb(15 23 42 / 0.06);
-  --sombra-alta: 0 12px 32px rgb(15 23 42 / 0.14);
+  --sombra: 0 1px 3px rgb(0 0 0 / 0.25), 0 8px 24px rgb(0 0 0 / 0.25);
+  --sombra-alta: 0 12px 32px rgb(0 0 0 / 0.4);
   --ancho-max: 960px;
   --nav-alto: 64px;
 }
@@ -46,8 +36,8 @@ body,
 
 body {
   margin: 0;
-  background: var(--slate-100);
-  color: var(--slate-900);
+  background: var(--fondo);
+  color: var(--texto);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
@@ -62,13 +52,25 @@ p {
   margin: 0;
 }
 
+h1,
+h2,
+h3 {
+  color: var(--texto);
+}
+
+input,
+select,
+textarea {
+  color-scheme: dark;
+}
+
 img {
   max-width: 100%;
   display: block;
 }
 
 :focus-visible {
-  outline: 3px solid var(--teal-600);
+  outline: 3px solid var(--acento);
   outline-offset: 2px;
   border-radius: 6px;
 }
@@ -90,8 +92,9 @@ img {
   gap: 12px;
   padding: 12px 16px;
   padding-top: max(12px, env(safe-area-inset-top));
-  background: var(--teal-700);
-  color: var(--blanco);
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borde);
+  color: var(--texto);
   box-shadow: var(--sombra);
 }
 
@@ -107,14 +110,10 @@ img {
 }
 
 .app-header__logo {
-  display: grid;
-  place-items: center;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
-  background: var(--blanco);
-  color: var(--teal-700);
-  font-weight: 800;
+  border-radius: 8px;
+  object-fit: contain;
 }
 
 .app-header__usuario {
@@ -154,8 +153,8 @@ img {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
-  background: var(--blanco);
-  border-top: 1px solid var(--slate-200);
+  background: var(--superficie);
+  border-top: 1px solid var(--borde);
   padding-bottom: env(safe-area-inset-bottom);
 }
 
@@ -164,7 +163,7 @@ img {
   place-items: center;
   min-height: var(--nav-alto);
   padding: 8px 4px;
-  color: var(--slate-500);
+  color: var(--texto-suave);
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 600;
@@ -172,14 +171,14 @@ img {
 }
 
 .app-nav__enlace.es-activo {
-  color: var(--teal-700);
-  box-shadow: inset 0 3px 0 var(--teal-600);
+  background: var(--acento);
+  color: #ffffff;
 }
 
 /* --- Componentes ----------------------------------------------------------- */
 .tarjeta {
-  background: var(--blanco);
-  border: 1px solid var(--slate-200);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
   border-radius: var(--radio);
   box-shadow: var(--sombra);
   padding: 20px;
@@ -197,7 +196,7 @@ img {
   font: inherit;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.06s ease, background-color 0.15s ease, opacity 0.15s ease;
+  transition: transform 0.06s ease, background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
 }
 
 .boton:active {
@@ -210,23 +209,32 @@ img {
 }
 
 .boton--primario {
-  background: var(--teal-700);
-  color: var(--blanco);
+  background: var(--acento);
+  color: #ffffff;
 }
 
 .boton--primario:hover:not(:disabled) {
-  background: var(--teal-600);
+  background: var(--acento-hover);
 }
 
 .boton--secundario {
-  background: var(--blanco);
-  color: var(--teal-700);
-  border-color: var(--teal-300, var(--slate-300));
+  background: transparent;
+  color: var(--texto);
+  border-color: var(--borde);
+}
+
+.boton--secundario:hover:not(:disabled) {
+  border-color: var(--acento);
 }
 
 .boton--peligro {
-  background: var(--rojo-100);
-  color: var(--rojo-600);
+  background: transparent;
+  color: var(--error);
+  border-color: var(--error);
+}
+
+.boton--peligro:hover:not(:disabled) {
+  background: rgba(192, 80, 77, 0.08);
 }
 
 .boton--fantasma {
@@ -256,32 +264,36 @@ img {
   margin-bottom: 6px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--slate-700);
+  color: var(--texto);
 }
 
 .campo__control {
   width: 100%;
   min-height: 46px;
   padding: 10px 12px;
-  border: 1px solid var(--slate-300);
+  border: 1px solid var(--borde);
   border-radius: var(--radio-chico);
-  background: var(--blanco);
-  color: inherit;
+  background: var(--fondo);
+  color: var(--texto);
   font: inherit;
   font-size: 16px;
 }
 
 .campo__control:focus {
-  border-color: var(--teal-600);
+  border-color: var(--acento);
   outline: none;
-  box-shadow: 0 0 0 3px var(--teal-100);
+  box-shadow: 0 0 0 3px rgb(42 157 143 / 0.18);
+}
+
+.campo__control::placeholder {
+  color: #5f6b7a;
 }
 
 .campo__ayuda {
   display: block;
   margin-top: 4px;
   font-size: 0.78rem;
-  color: var(--slate-500);
+  color: var(--texto-suave);
 }
 
 .alerta {
@@ -292,28 +304,32 @@ img {
 }
 
 .alerta--error {
-  background: var(--rojo-100);
-  color: var(--rojo-600);
+  background: rgba(192, 80, 77, 0.08);
+  color: var(--error);
+  border: 1px solid rgba(192, 80, 77, 0.4);
 }
 
 .alerta--exito {
-  background: var(--verde-100);
-  color: var(--verde-600);
+  background: rgba(42, 157, 143, 0.08);
+  color: var(--acento);
+  border: 1px solid rgba(42, 157, 143, 0.4);
 }
 
 .alerta--demo {
-  background: var(--teal-100);
-  color: var(--teal-700);
+  background: rgba(139, 148, 158, 0.08);
+  color: var(--texto-suave);
+  border: 1px solid var(--borde);
 }
 
 .alerta--edicion {
-  background: var(--ambar-100);
-  color: var(--ambar-600);
+  background: rgba(201, 162, 39, 0.08);
+  color: var(--advertencia);
+  border: 1px solid rgba(201, 162, 39, 0.4);
 }
 
 .aviso-demo {
-  background: var(--ambar-100);
-  color: var(--ambar-600);
+  background: rgba(201, 162, 39, 0.08);
+  color: var(--advertencia);
   text-align: center;
   font-size: 0.82rem;
   font-weight: 600;
@@ -329,14 +345,14 @@ img {
   place-items: center;
   gap: 12px;
   min-height: 100vh;
-  color: var(--slate-500);
+  color: var(--texto-suave);
 }
 
 .spinner {
   width: 28px;
   height: 28px;
-  border: 3px solid var(--slate-300);
-  border-top-color: var(--teal-600);
+  border: 3px solid var(--borde);
+  border-top-color: var(--acento);
   border-radius: 50%;
   animation: girar 0.8s linear infinite;
 }
@@ -357,13 +373,13 @@ img {
 }
 
 .vacio__texto {
-  color: var(--slate-700);
+  color: var(--texto);
 }
 
 .vacio__nota {
   margin-top: 14px;
   font-size: 0.8rem;
-  color: var(--slate-500);
+  color: var(--texto-suave);
 }
 
 /* --- Login ----------------------------------------------------------------- */
@@ -374,7 +390,7 @@ img {
   padding: 24px 16px;
   padding-top: max(24px, env(safe-area-inset-top, 0px));
   padding-bottom: max(24px, env(safe-area-inset-bottom, 0px));
-  background: linear-gradient(160deg, var(--teal-700), var(--teal-600) 45%, #14b8a6);
+  background: var(--fondo);
 }
 
 .login__tarjeta {
@@ -382,6 +398,19 @@ img {
   max-width: 400px;
   padding: 28px 24px;
   text-align: center;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  box-shadow: var(--sombra-alta);
+}
+
+.login__formulario {
+  width: 100%;
+  max-width: 400px;
+  padding: 28px 24px;
+  text-align: center;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
   box-shadow: var(--sombra-alta);
 }
 
@@ -391,16 +420,17 @@ img {
   margin: 0 auto 14px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--teal-100);
+  border: 3px solid var(--borde);
 }
 
 .login__titulo {
   font-size: 1.5rem;
+  color: var(--texto);
 }
 
 .login__subtitulo {
   margin: 6px 0 22px;
-  color: var(--slate-500);
+  color: var(--texto-suave);
   font-size: 0.9rem;
 }
 
@@ -411,7 +441,7 @@ img {
 .login__nota {
   margin-top: 18px;
   font-size: 0.78rem;
-  color: var(--slate-500);
+  color: var(--texto-suave);
 }
 
 /* --- Inicio ---------------------------------------------------------------- */
@@ -423,8 +453,8 @@ img {
 .inicio__perfil {
   padding: 28px 20px;
   text-align: center;
-  background: var(--blanco);
-  border: 1px solid var(--slate-200);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
   border-radius: var(--radio);
   box-shadow: var(--sombra);
 }
@@ -435,7 +465,7 @@ img {
   margin: 0 auto 16px;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--teal-100);
+  border: 3px solid var(--borde);
   box-shadow: var(--sombra);
 }
 
@@ -445,7 +475,7 @@ img {
 
 .inicio__texto {
   margin-top: 6px;
-  color: var(--slate-500);
+  color: var(--texto-suave);
 }
 
 .inicio__accesos {
@@ -457,8 +487,8 @@ img {
   display: grid;
   gap: 4px;
   padding: 18px;
-  background: var(--blanco);
-  border: 1px solid var(--slate-200);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
   border-radius: var(--radio);
   box-shadow: var(--sombra);
   text-decoration: none;
@@ -468,7 +498,7 @@ img {
 
 .acceso:hover {
   transform: translateY(-2px);
-  border-color: var(--teal-600);
+  border-color: var(--acento);
   box-shadow: var(--sombra-alta);
 }
 
@@ -479,8 +509,9 @@ img {
   height: 44px;
   margin-bottom: 6px;
   border-radius: 12px;
-  background: var(--teal-50);
-  color: var(--teal-700);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  color: var(--acento);
   font-size: 1.3rem;
   font-weight: 700;
 }
@@ -491,7 +522,7 @@ img {
 }
 
 .acceso__descripcion {
-  color: var(--slate-500);
+  color: var(--texto-suave);
   font-size: 0.9rem;
 }
 
@@ -512,7 +543,7 @@ img {
 }
 
 .pagina__subtitulo {
-  color: var(--slate-500);
+  color: var(--texto-suave);
   font-size: 0.9rem;
 }
 
@@ -542,6 +573,36 @@ img {
   flex: 1 1 160px;
 }
 
+/* Pestañas secundarias (Historial: Compras por mes / Resumen mensual) */
+.pestanas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pestanas__boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: var(--radio-chico);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--borde);
+  background: transparent;
+  color: var(--texto-suave);
+  transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.pestanas__boton--activa {
+  background: var(--superficie);
+  border-color: var(--acento);
+  color: var(--texto);
+}
+
 /* --- Lista de registros ----------------------------------------------------- */
 .lista {
   display: grid;
@@ -553,7 +614,7 @@ img {
 }
 
 .lista__vacia {
-  color: var(--slate-500);
+  color: var(--texto-suave);
   text-align: center;
 }
 
@@ -584,7 +645,7 @@ img {
 .registro__fecha {
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--teal-700);
+  color: var(--texto-suave);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
@@ -596,7 +657,7 @@ img {
 
 .registro__meta {
   font-size: 0.82rem;
-  color: var(--slate-500);
+  color: var(--texto-suave);
 }
 
 .registro__lado {
@@ -618,6 +679,17 @@ img {
   gap: 8px;
 }
 
+/* Estados: discreto, solo color de texto */
+.estado--saldado {
+  color: var(--acento);
+  font-weight: 700;
+}
+
+.estado--pendiente {
+  color: var(--advertencia);
+  font-weight: 700;
+}
+
 /* --- Historial: resumen y tabla --------------------------------------------- */
 .resumen {
   display: grid;
@@ -634,7 +706,7 @@ img {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--slate-500);
+  color: var(--texto-suave);
   font-weight: 700;
 }
 
@@ -662,7 +734,8 @@ img {
   justify-content: space-between;
   gap: 6px;
   padding: 10px 12px;
-  background: var(--ambar-100);
+  background: transparent;
+  border: 1px solid var(--borde);
   border-radius: var(--radio-chico);
 }
 
@@ -671,7 +744,7 @@ img {
 }
 
 .pendientes__detalle {
-  color: #92400e;
+  color: var(--advertencia);
 }
 
 .tabla-envoltura {
@@ -689,13 +762,13 @@ img {
   text-align: left;
   padding: 16px;
   font-weight: 700;
-  color: var(--slate-900);
+  color: var(--texto);
 }
 
 .tabla th,
 .tabla td {
   padding: 12px 14px;
-  border-bottom: 1px solid var(--slate-200);
+  border-bottom: 1px solid var(--borde);
   text-align: left;
   white-space: nowrap;
 }
@@ -704,8 +777,8 @@ img {
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: var(--slate-500);
-  background: var(--slate-50, #f8fafc);
+  color: var(--texto-suave);
+  background: rgb(255 255 255 / 0.03);
 }
 
 .tabla tbody tr:last-child th,
@@ -729,7 +802,7 @@ img {
 .tabla__anio {
   display: block;
   font-size: 0.78rem;
-  color: var(--slate-500);
+  color: var(--texto-suave);
 }
 
 .tabla__acciones-col {
@@ -745,13 +818,13 @@ img {
 }
 
 .etiqueta--verde {
-  background: var(--verde-100);
-  color: var(--verde-600);
+  background: rgba(42, 157, 143, 0.1);
+  color: var(--acento);
 }
 
 .etiqueta--ambar {
-  background: var(--ambar-100);
-  color: var(--ambar-600);
+  background: rgba(201, 162, 39, 0.1);
+  color: var(--advertencia);
 }
 
 /* --- Escritorio ------------------------------------------------------------ */
@@ -764,7 +837,7 @@ img {
     max-width: var(--ancho-max);
     margin: 16px auto 0;
     padding: 6px;
-    border: 1px solid var(--slate-200);
+    border: 1px solid var(--borde);
     border-radius: 999px;
     grid-auto-flow: column;
     justify-content: center;
@@ -779,8 +852,8 @@ img {
   }
 
   .app-nav__enlace.es-activo {
-    background: var(--teal-700);
-    color: var(--blanco);
+    background: var(--acento);
+    color: #ffffff;
     box-shadow: none;
   }
 
@@ -813,4 +886,3 @@ img {
     transition-duration: 0.01ms !important;
   }
 }
-

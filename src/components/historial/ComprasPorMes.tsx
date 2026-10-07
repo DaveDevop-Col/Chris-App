@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { formatearPesos, formatearFecha, formatearMesAnio } from '@/lib/format'
+import { formatearPesos, formatearFecha, formatearMesAnio, plural, textoEstado, claseEstado } from '@/lib/format'
 import { supabase } from '@/lib/supabase'
 import { listarProductosCompra } from '@/lib/datos'
 import type { Compra, ProductoGasto } from '@/lib/types'
@@ -69,9 +69,10 @@ export default function ComprasPorMes() {
         return (
           <div key={k} className='lista'>
             <h3>
-              {formatearMesAnio(Number(m), Number(a))}: {list.length} compras, total {formatearPesos(total)}
+              {formatearMesAnio(Number(m), Number(a))}: {list.length}{' '}
+              {plural(list.length, 'compra', 'compras')}, total {formatearPesos(total)}
             </h3>
-            <ul>
+            <ul className='lista__items'>
               {list.map((c) => {
                 const prods = productosMap[c.id] ?? []
                 const nombre = perfiles[c.user_id] ?? ''
@@ -79,7 +80,9 @@ export default function ComprasPorMes() {
                 return (
                   <li key={c.id} className='tarjeta registro'>
                     <div>
-                      {formatearFecha(c.fecha)} - {c.descripcion || 'Compra'} - {nombre} - {c.num_productos ?? prods.length} productos - {formatearPesos(c.total)} - {c.estado}
+                      {formatearFecha(c.fecha)} - {c.descripcion || 'Compra'} - {nombre} - {c.num_productos ?? prods.length}{' '}
+                      {plural(c.num_productos ?? prods.length, 'producto', 'productos')} - {formatearPesos(c.total)} -{' '}
+                      <span className={claseEstado(c.estado)}>{textoEstado(c.estado)}</span>
                     </div>
                     <button
                       type='button'

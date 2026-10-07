@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { formatearPesos, formatearFecha } from '@/lib/format'
+import { formatearPesos, formatearFecha, plural } from '@/lib/format'
 import { listarProductosCompra, actualizarCompra } from '@/lib/datos'
 import type { Compra, ProductoGasto } from '@/lib/types'
 
 type Props = {
-  compras: Compra[]
+  compras: (Compra & { num_productos?: number })[]
   perfiles: Record<string, string>
   usuarioId: string
   onActualizado: () => void
@@ -69,6 +69,7 @@ export default function ComprasPendientesSaldo({
           const esMio = c.user_id === usuarioId
           const parte = Math.round(c.total / 2)
           const prods = productosMap[c.id] ?? []
+          const numProd = c.num_productos ?? prods.length
           const expand = expandida[c.id]
           return (
             <li key={c.id} className='tarjeta registro'>
@@ -76,7 +77,7 @@ export default function ComprasPendientesSaldo({
                 <span className='registro__fecha'>{formatearFecha(c.fecha)}</span>
                 <span className='registro__nombre'>{c.descripcion || 'Compra'}</span>
                 <span className='registro__meta'>
-                  Quién la creó: {nombre} • N° productos: {prods.length}
+                  Quién la creó: {nombre} • N° {plural(numProd, 'producto', 'productos')}: {numProd}
                 </span>
               </div>
               <div className='registro__lado'>
